@@ -7,5 +7,7 @@ namespace Reservation.Infrastructure.Abstracts
     {
         DbSet<Asset> Assets { get; set; }
         DbSet<ReservationItem> ReservationItems { get; set; }
+        DbSet<Reserver> Reservers { get; set; }
+        DbSet<Approver> Approvers { get; set; }
     }
 }

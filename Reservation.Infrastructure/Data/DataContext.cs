@@ -8,6 +8,8 @@ namespace Reservation.Infrastructure.Data
     {
         public DbSet<Asset> Assets { get; set; }
         public DbSet<ReservationItem> ReservationItems { get; set; }
+        public DbSet<Reserver> Reservers { get; set; }
+        public DbSet<Approver> Approvers { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
