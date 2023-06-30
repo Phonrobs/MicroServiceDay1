@@ -9,5 +9,7 @@ namespace Reservation.Infrastructure.Abstracts
         DbSet<ReservationItem> ReservationItems { get; set; }
         DbSet<Reserver> Reservers { get; set; }
         DbSet<Approver> Approvers { get; set; }
+
+        Task SaveChangeAsync(CancellationToken cancellationToken);
     }
 }

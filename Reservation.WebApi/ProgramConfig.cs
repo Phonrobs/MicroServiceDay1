@@ -2,6 +2,10 @@
 using Reservation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using MediatR;
+using ShareLib.Behaviors;
+using FluentValidation;
+using Serilog;
 
 namespace Reservation.WebApi
 {
@@ -27,6 +31,32 @@ namespace Reservation.WebApi
                     });
                 }
             });
+
+            // add Mediatr classes
+            var assembly = typeof(Reservation.Application.Features.Assets.CreateAssetCommand).Assembly;
+
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(assembly);
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            });
+
+            // add FluentValidation classes
+            builder.Services.AddValidatorsFromAssembly(assembly);
+
+            // Add Serilog
+            var logConf = new LoggerConfiguration();
+
+            logConf.WriteTo.Console(restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose);
+
+            if (!builder.Environment.IsDevelopment())
+            {
+                logConf.WriteTo.EventLog("Application", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error);
+            }
+
+            Log.Logger = logConf.CreateLogger();
+
+            builder.Host.UseSerilog();
         }
     }
 }

@@ -21,5 +21,10 @@ namespace Reservation.Infrastructure.Data
             var assembly = typeof(DataContext).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         }
+
+        public Task SaveChangeAsync(CancellationToken cancellationToken)
+        {
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
