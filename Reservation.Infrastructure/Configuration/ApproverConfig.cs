@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Reservation.Domain.Models;
+using Reservation.Infrastructure.Converters;
 
 namespace Reservation.Infrastructure.Configuration
 {
