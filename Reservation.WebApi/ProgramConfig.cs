@@ -6,6 +6,8 @@ using MediatR;
 using ShareLib.Behaviors;
 using FluentValidation;
 using Serilog;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 namespace Reservation.WebApi
 {
@@ -57,6 +59,10 @@ namespace Reservation.WebApi
             Log.Logger = logConf.CreateLogger();
 
             builder.Host.UseSerilog();
+
+            // Add Web API authentication
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApi(builder.Configuration, "AzureAd");
         }
     }
 }
